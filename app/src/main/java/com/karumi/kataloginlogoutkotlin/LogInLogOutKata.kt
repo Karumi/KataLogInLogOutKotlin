@@ -18,8 +18,8 @@ class LogInLogOutKata(private val clock: Clock) {
     else -> InvalidCredentials.left()
   }
 
-  fun logOut(): Option<Unit> = when ((clock.secondsSince1970 % 2) == 0) {
-    true -> Some(Unit)
+  fun logOut(): Option<Unit> = when {
+    ((clock.now.toDate().time % 2).toInt() == 0) -> Some(Unit)
     else -> None
   }
 

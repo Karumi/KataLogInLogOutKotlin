@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity(), Presenter.View {
     logInButton.setOnClickListener {
       val username = username.text?.toString() ?: ""
       val password = password.text?.toString() ?: ""
-      presenter.logIn(username, password)
+      presenter.onLogInButtonTap(username, password)
     }
     logOutButton.setOnClickListener {
-      presenter.logOut()
+      presenter.onLogOutButtonTap()
     }
   }
 
