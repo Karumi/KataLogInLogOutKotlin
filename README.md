@@ -26,20 +26,20 @@ Our recommendation for this exercise is:
 
 **Important requirement:** Until the testing stage, all the code should be written inside the Activity but the fake API client.
 
-* Movement 1: Writing the app.
+* **Movement 1:** Writing the app.
 
   * Build an app with only one screen that allows you to log in if the username and the password are admin. Simulate there is a asynchronous network connection before considering the login as a success or an error.
   * After the log in, the user should be able to log out if the log out button is pressed and the second when the button was pressed was even.
   * Add validation for the username field so chars as ``,``, ``.``, and ``;`` are not allowed. Show a toast explaining the error if the username contain these chars.  
 
-* Movement 2: Testing the app using just unit tests.
+* **Movement 2:** Testing the app using just unit tests.
 
   * Take some time to think about what should you test and how. Did you find any issue with this code that does not let you test it?
   * Using some common testing patterns re-implement part of your app making it testable and start adding coverage. Think twice your changes before start coding and test all the code you move using just unit tests.
   
 ## Extra Tasks
   
-* Movement 3: Persist information.
+* **Movement 3:** Persist information.
 
   * Make the app persist the user session and show the UI buttons based on the user persisted session.  
   
