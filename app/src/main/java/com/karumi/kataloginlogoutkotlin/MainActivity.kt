@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import co.metalab.asyncawait.async
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Presenter.View {
 
-  private val logInLogOutKata = LogInLogOutKata(Clock())
+  private val presenter = Presenter(
+      logInLogOutKata = LogInLogOutKata(Clock()),
+      view = this
+  )
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -21,65 +23,34 @@ class MainActivity : AppCompatActivity() {
     logInButton.setOnClickListener {
       val username = username.text?.toString() ?: ""
       val password = password.text?.toString() ?: ""
-      logIn(username, password)
+      presenter.logIn(username, password)
     }
     logOutButton.setOnClickListener {
-      logOut()
+      presenter.logOut()
     }
   }
 
-  private fun logIn(username: String, password: String) = async {
-    val logInResult = await { logInLogOutKata.logIn(username, password) }
-    logInResult.fold(
-        {
-          when (it) {
-            is InvalidCredentials -> showError(R.string.log_in_error_message)
-            is InvalidUsername -> showError(R.string.invalid_username_error_message)
-          }
-        }
-        ,
-        {
-          hideLogInForm()
-          showLogOutForm()
-        }
-    )
-  }
-
-  private fun logOut() = async {
-    val logOutResult = await { logInLogOutKata.logOut() }
-    logOutResult.fold(
-        {
-          showError(R.string.log_out_error_message)
-        }
-        ,
-        {
-          hideLogOutForm()
-          showLogInForm()
-        }
-    )
-  }
-
-  private fun showLogInForm() {
+  override fun showLogInForm() {
     username.visibility = View.VISIBLE
     password.visibility = View.VISIBLE
     logInButton.visibility = View.VISIBLE
   }
 
-  private fun hideLogOutForm() {
+  override fun hideLogOutForm() {
     logOutButton.visibility = View.GONE
   }
 
-  private fun showError(errorMessage: Int) {
-    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-  }
-
-  private fun hideLogInForm() {
+  override fun hideLogInForm() {
     username.visibility = View.GONE
     password.visibility = View.GONE
     logInButton.visibility = View.GONE
   }
 
-  private fun showLogOutForm() {
+  override fun showLogOutForm() {
     logOutButton.visibility = View.VISIBLE
+  }
+
+  override fun showError(resource: Int) {
+    Toast.makeText(this, resource, Toast.LENGTH_SHORT).show()
   }
 }
