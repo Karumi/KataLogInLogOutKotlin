@@ -1,3 +1,7 @@
 <resources>
   <string name="app_name">KataLogInLogOutKotlin</string>
+  <string name="log_in_button">LOG IN</string>
+  <string name="log_out_button">LOG OUT</string>
+  <string name="username_hint">username</string>
+  <string name="password_hint">password</string>
 </resources>
