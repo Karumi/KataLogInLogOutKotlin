@@ -2,7 +2,7 @@
 ============================
 
 - We are here to practice unit testing.
-- We are going to use [JUnit][espresso] to interact with the Application UI.
+- We are going to use [JUnit][junit] to interact with the Application UI.
 - We are going to practice pair programming.
 
 ---
