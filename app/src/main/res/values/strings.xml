@@ -4,4 +4,7 @@
   <string name="log_out_button">LOG OUT</string>
   <string name="username_hint">username</string>
   <string name="password_hint">password</string>
+  <string name="log_in_error_message">Invalid credentials</string>
+  <string name="invalid_username_error_message">Invalid username</string>
+  <string name="log_out_error_message">Ups, we could not perform the log out task</string>
 </resources>

@@ -24,11 +24,11 @@ Our recommendation for this exercise is:
   
 ## Tasks
 
-**Important requirement:** Until the testing stage, all the code should be written inside the Activity but the fake API client.
+**Important requirement:** Until the testing stage, all the code should be written inside the Activity.
 
 * **Movement 1:** Writing the app.
 
-  * Build an app with only one screen that allows you to log in if the username and the password are admin. Simulate there is a asynchronous network connection before considering the login as a success or an error.
+  * Build an app with only one screen that allows you to log in if the username and the password are equal to ``admin``.
   * After the log in, the user should be able to log out if the log out button is pressed and the second when the button was pressed was even.
   * Add validation for the username field so chars as ``,``, ``.``, and ``;`` are not allowed. Show a toast explaining the error if the username contain these chars.  
 

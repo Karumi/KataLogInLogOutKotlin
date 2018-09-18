@@ -12,7 +12,7 @@ android {
   compileSdkVersion 28
   defaultConfig {
     applicationId "com.karumi.kataloginlogoutkotlin"
-    minSdkVersion 14
+    minSdkVersion 15
     targetSdkVersion 28
     versionCode 1
     versionName "1.0"
@@ -25,12 +25,22 @@ android {
     }
   }
 }
+def arrow_version = "0.7.3"
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
   implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+  implementation "io.arrow-kt:arrow-core:$arrow_version"
+  implementation "io.arrow-kt:arrow-syntax:$arrow_version"
+  implementation "io.arrow-kt:arrow-typeclasses:$arrow_version"
+  implementation "io.arrow-kt:arrow-data:$arrow_version"
+  implementation "io.arrow-kt:arrow-instances-core:$arrow_version"
+  implementation "io.arrow-kt:arrow-instances-data:$arrow_version"
+  implementation 'co.metalab.asyncawait:asyncawait:1.0.0'
+  kapt    "io.arrow-kt:arrow-annotations-processor:$arrow_version"
+  implementation "joda-time:joda-time:2.10"
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
