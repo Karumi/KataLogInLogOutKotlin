@@ -13,7 +13,6 @@ Your task as Android Developer is to implement all the tasks described below one
 
 **This repository is ready to build the application, pass the checkstyle and your tests in Travis-CI environments.**
 
-
 Our recommendation for this exercise is:
 
   * Before starting
@@ -30,7 +29,8 @@ Our recommendation for this exercise is:
 
   * Build an app with only one screen that allows you to log in if the username and the password are equal to ``admin``.
   * After the log in, the user should be able to log out if the log out button is pressed and the second when the button was pressed was even.
-  * Add validation for the username field so chars as ``,``, ``.``, and ``;`` are not allowed. Show a toast explaining the error if the username contain these chars.  
+  * Add validation for the username field so chars as ``,``, ``.``, and ``;`` are not allowed. Show a toast explaining the error if the username contain these chars.
+  * The code to log the user in and out has to been executed out of the main thread.  
 
 * **Movement 2:** Testing the app using just unit tests.
 
