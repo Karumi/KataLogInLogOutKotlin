@@ -23,16 +23,12 @@ class Presenter(private val logInLogOutKata: LogInLogOutKata, private val view: 
     }
 
     fun onLogOutButtonTap() = async {
-        val logOutResult = logInLogOutKata.logOut()
-        logOutResult.fold(
-            {
-                view.showError(R.string.log_out_error_message)
-            },
-            {
-                view.hideLogOutForm()
-                view.showLogInForm()
-            }
-        )
+        if (logInLogOutKata.logOut()) {
+            view.hideLogOutForm()
+            view.showLogInForm()
+        } else {
+            view.showError(R.string.log_out_error_message)
+        }
     }
 
     interface View {

@@ -1,9 +1,6 @@
 package com.karumi.kataloginlogoutkotlin
 
 import arrow.core.Either
-import arrow.core.None
-import arrow.core.Option
-import arrow.core.Some
 import arrow.core.left
 import arrow.core.right
 
@@ -18,10 +15,8 @@ class LogInLogOutKata(private val clock: Clock) {
         else -> InvalidCredentials.left()
     }
 
-    fun logOut(): Option<Unit> = when {
-        ((clock.now.toDate().time % 2).toInt() == 0) -> Some(Unit)
-        else -> None
-    }
+    fun logOut(): Boolean =
+        (clock.now.toDate().time % 2).toInt() == 0
 
     private fun containsInvalidChars(username: String): Boolean =
         username.contains(".") || username.contains(",") || username.contains(";")

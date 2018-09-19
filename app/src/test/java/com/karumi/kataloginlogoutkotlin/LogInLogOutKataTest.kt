@@ -1,11 +1,11 @@
 package com.karumi.kataloginlogoutkotlin
 
-import arrow.core.None
-import arrow.core.Some
 import arrow.core.left
 import arrow.core.right
 import com.nhaarman.mockito_kotlin.whenever
-import junit.framework.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
+import junit.framework.TestCase.assertFalse
 import org.joda.time.DateTime
 import org.junit.Before
 import org.junit.Test
@@ -81,7 +81,7 @@ class LogInLogOutKataTest {
 
         val logOutResult = logInLogOutKata.logOut()
 
-        assertEquals(None, logOutResult)
+        assertFalse(logOutResult)
     }
 
     @Test
@@ -90,7 +90,7 @@ class LogInLogOutKataTest {
 
         val logOutResult = logInLogOutKata.logOut()
 
-        assertEquals(Some(Unit), logOutResult)
+        assertTrue(logOutResult)
     }
 
     private fun givenNowIs(dateTime: DateTime) {

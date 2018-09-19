@@ -1,9 +1,6 @@
 package com.karumi.kataloginlogoutkotlin
 
 import arrow.core.Either
-import arrow.core.None
-import arrow.core.Option
-import arrow.core.Some
 import arrow.core.left
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
@@ -55,7 +52,7 @@ class PresenterTest {
 
     @Test
     fun `should show an could not perform log out error if the log out process fails`() = runBlocking {
-        givenTheLogOutProcessReturns(None)
+        givenTheLogOutProcessReturns(false)
 
         presenter.onLogOutButtonTap()
 
@@ -65,7 +62,7 @@ class PresenterTest {
     @Test
     fun `should hide the log in form and show the log out form if the log in process finished properly`() =
         runBlocking {
-            givenTheLogOutProcessReturns(Some(Unit))
+            givenTheLogOutProcessReturns(true)
 
             presenter.onLogOutButtonTap()
 
@@ -76,7 +73,7 @@ class PresenterTest {
     @Test
     fun `should hide the log out form and show the log in form if the log out process finished properly`() =
         runBlocking {
-            givenTheLogOutProcessReturns(Some(Unit))
+            givenTheLogOutProcessReturns(true)
 
             presenter.onLogOutButtonTap()
 
@@ -84,7 +81,7 @@ class PresenterTest {
             verify(view).showLogInForm()
         }
 
-    private fun givenTheLogOutProcessReturns(result: Option<Unit>) {
+    private fun givenTheLogOutProcessReturns(result: Boolean) {
         whenever(kata.logOut()).thenReturn(result)
     }
 
