@@ -51,7 +51,7 @@ class PresenterTest {
     }
 
     @Test
-    fun `should show an could not perform log out error if the log out process fails`() = runBlocking {
+    fun `should show a could not perform log out error if the log out process fails`() = runBlocking {
         givenTheLogOutProcessReturns(false)
 
         presenter.onLogOutButtonTap()

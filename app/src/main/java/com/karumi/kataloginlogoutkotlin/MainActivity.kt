@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity(), Presenter.View {
     }
 
     override fun hideLogInForm() {
+        username.setText("")
+        password.setText("")
         username.visibility = View.GONE
         password.visibility = View.GONE
         logInButton.visibility = View.GONE
