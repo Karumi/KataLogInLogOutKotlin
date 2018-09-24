@@ -5,7 +5,7 @@ import arrow.core.left
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.experimental.Unconfined
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,11 +29,11 @@ class PresenterTest {
 
     @Before
     fun setUp() {
-        presenter = Presenter(kata, view)
+        presenter = Presenter(kata, view, Unconfined, Unconfined)
     }
 
     @Test
-    fun `should show an invalid credentials error if the log in process returns InvalidCredentials`() = runBlocking {
+    fun `should show an invalid credentials error if the log in process returns InvalidCredentials`() {
         givenTheLogInProcessReturns(InvalidCredentials.left())
 
         presenter.onLogInButtonTap(ANY_USERNAME, ANY_PASS)
@@ -42,7 +42,7 @@ class PresenterTest {
     }
 
     @Test
-    fun `should show an invalid username error if the log in process returns InvalidUsername`() = runBlocking {
+    fun `should show an invalid username error if the log in process returns InvalidUsername`() {
         givenTheLogInProcessReturns(InvalidUsername.left())
 
         presenter.onLogInButtonTap(ANY_USERNAME, ANY_PASS)
@@ -51,7 +51,7 @@ class PresenterTest {
     }
 
     @Test
-    fun `should show a could not perform log out error if the log out process fails`() = runBlocking {
+    fun `should show a could not perform log out error if the log out process fails`() {
         givenTheLogOutProcessReturns(false)
 
         presenter.onLogOutButtonTap()
@@ -60,8 +60,7 @@ class PresenterTest {
     }
 
     @Test
-    fun `should hide the log in form and show the log out form if the log in process finished properly`() =
-        runBlocking {
+    fun `should hide the log in form and show the log out form if the log in process finished properly`() {
             givenTheLogOutProcessReturns(true)
 
             presenter.onLogOutButtonTap()
@@ -71,8 +70,7 @@ class PresenterTest {
         }
 
     @Test
-    fun `should hide the log out form and show the log in form if the log out process finished properly`() =
-        runBlocking {
+    fun `should hide the log out form and show the log in form if the log out process finished properly`() {
             givenTheLogOutProcessReturns(true)
 
             presenter.onLogOutButtonTap()

@@ -1,11 +1,16 @@
 package com.karumi.kataloginlogoutkotlin
 
-import co.metalab.asyncawait.async
+import kotlin.coroutines.experimental.CoroutineContext
 
-class Presenter(private val logInLogOutKata: LogInLogOutKata, private val view: View) {
+class Presenter(
+    private val logInLogOutKata: LogInLogOutKata,
+    private val view: View,
+    override val asyncContext: CoroutineContext,
+    override val uiContext: CoroutineContext
+) : AsyncExecutor {
 
     fun onLogInButtonTap(username: String, password: String) = async {
-        val lotInResult = logInLogOutKata.logIn(username, password)
+        val lotInResult = await { logInLogOutKata.logIn(username, password) }
         lotInResult.fold(
             {
                 when (it) {
@@ -23,7 +28,8 @@ class Presenter(private val logInLogOutKata: LogInLogOutKata, private val view: 
     }
 
     fun onLogOutButtonTap() = async {
-        if (logInLogOutKata.logOut()) {
+        val logOutResult = await { logInLogOutKata.logOut() }
+        if (logOutResult) {
             view.hideLogOutForm()
             view.showLogInForm()
         } else {
