@@ -2,6 +2,7 @@ package com.karumi.kataloginlogoutkotlin
 
 import arrow.core.Either
 import arrow.core.left
+import arrow.core.right
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
@@ -61,12 +62,12 @@ class PresenterTest {
 
     @Test
     fun `should hide the log in form and show the log out form if the log in process finished properly`() {
-            givenTheLogOutProcessReturns(true)
+            givenTheLogInProcessReturns(ANY_USERNAME.right())
 
-            presenter.onLogOutButtonTap()
+            presenter.onLogInButtonTap(ANY_USERNAME, ANY_PASS)
 
-            verify(view).hideLogOutForm()
-            verify(view).showLogInForm()
+            verify(view).hideLogInForm()
+            verify(view).showLogOutForm()
         }
 
     @Test

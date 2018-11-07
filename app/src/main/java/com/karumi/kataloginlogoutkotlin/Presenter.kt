@@ -14,9 +14,7 @@ class Presenter(
         lotInResult.fold(
             {
                 when (it) {
-                    is InvalidCredentials -> {
-                        view.showError(R.string.log_in_error_message)
-                    }
+                    is InvalidCredentials -> view.showError(R.string.log_in_error_message)
                     is InvalidUsername -> view.showError(R.string.invalid_username_error_message)
                 }
             },
