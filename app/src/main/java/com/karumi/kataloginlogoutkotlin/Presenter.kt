@@ -3,6 +3,7 @@ package com.karumi.kataloginlogoutkotlin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class Presenter(
@@ -11,7 +12,7 @@ class Presenter(
 ) : CoroutineScope by MainScope() {
 
     fun onLogInButtonTap(username: String, password: String) = launch {
-        val lotInResult = logInLogOutKata.logIn(username, password)
+        val lotInResult = coroutineScope { logInLogOutKata.logIn(username, password) }
         lotInResult.fold(
             {
                 when (it) {
@@ -27,7 +28,7 @@ class Presenter(
     }
 
     fun onLogOutButtonTap() = launch {
-        val logOutResult = logInLogOutKata.logOut()
+        val logOutResult = coroutineScope { logInLogOutKata.logOut() }
         if (logOutResult) {
             view.hideLogOutForm()
             view.showLogInForm()
