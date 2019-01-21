@@ -3,9 +3,7 @@ repositories {
 }
 
 apply plugin: "com.android.application"
-
 apply plugin: "kotlin-android"
-
 apply plugin: "kotlin-android-extensions"
 
 android {
@@ -82,8 +80,6 @@ task ktlintFormat(type: JavaExec, group: "formatting") {
   args "-F", "src/**/*.kt"
 }
 
-kotlin {
-  experimental {
-    coroutines "enable"
-  }
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile).all {
+  kotlinOptions.freeCompilerArgs += ["-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"]
 }

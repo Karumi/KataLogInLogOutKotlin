@@ -1,12 +1,10 @@
 package com.karumi.kataloginlogoutkotlin
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 class Presenter(
     private val logInLogOutKata: LogInLogOutKata,
     private val view: View
