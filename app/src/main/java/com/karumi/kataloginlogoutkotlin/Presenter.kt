@@ -1,16 +1,18 @@
 package com.karumi.kataloginlogoutkotlin
 
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class Presenter(
     private val logInLogOutKata: LogInLogOutKata,
-    private val view: View,
-    override val asyncContext: CoroutineContext,
-    override val uiContext: CoroutineContext
-) : AsyncExecutor {
+    private val view: View
+) : CoroutineScope by MainScope() {
 
-    fun onLogInButtonTap(username: String, password: String) = async {
-        val lotInResult = await { logInLogOutKata.logIn(username, password) }
+    fun onLogInButtonTap(username: String, password: String) = launch {
+        val lotInResult = coroutineScope { logInLogOutKata.logIn(username, password) }
         lotInResult.fold(
             {
                 when (it) {
@@ -25,14 +27,18 @@ class Presenter(
         )
     }
 
-    fun onLogOutButtonTap() = async {
-        val logOutResult = await { logInLogOutKata.logOut() }
+    fun onLogOutButtonTap() = launch {
+        val logOutResult = coroutineScope { logInLogOutKata.logOut() }
         if (logOutResult) {
             view.hideLogOutForm()
             view.showLogInForm()
         } else {
             view.showError(R.string.log_out_error_message)
         }
+    }
+
+    fun onDestroy() {
+        cancel()
     }
 
     interface View {
