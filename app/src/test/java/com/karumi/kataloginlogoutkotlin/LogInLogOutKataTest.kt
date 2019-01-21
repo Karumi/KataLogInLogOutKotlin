@@ -2,10 +2,11 @@ package com.karumi.kataloginlogoutkotlin
 
 import arrow.core.left
 import arrow.core.right
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.whenever
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
 import junit.framework.TestCase.assertFalse
+import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.runBlocking
 import org.joda.time.DateTime
 import org.junit.Before
 import org.junit.Test
@@ -34,49 +35,52 @@ class LogInLogOutKataTest {
     }
 
     @Test
-    fun `should return an invalid username error if the username contains the first invalid char char chars`() {
-        val logInResult = logInLogOutKata.logIn("ad,min", ANY_INVALID_PASSWORD)
+    fun `should return an invalid username error if the username contains the first invalid char char chars`() =
+        runBlocking {
+            val logInResult = logInLogOutKata.logIn("ad,min", ANY_INVALID_PASSWORD)
 
-        assertEquals(InvalidUsername.left(), logInResult)
-    }
-
-    @Test
-    fun `should return an invalid username error if the username contains the second invalid char char chars`() {
-        val logInResult = logInLogOutKata.logIn("ad.min", ANY_INVALID_PASSWORD)
-
-        assertEquals(InvalidUsername.left(), logInResult)
-    }
+            assertEquals(InvalidUsername.left(), logInResult)
+        }
 
     @Test
-    fun `should return an invalid username error if the username contains the third invalid char char chars`() {
-        val logInResult = logInLogOutKata.logIn("ad;min", ANY_INVALID_PASSWORD)
+    fun `should return an invalid username error if the username contains the second invalid char char chars`() =
+        runBlocking {
+            val logInResult = logInLogOutKata.logIn("ad.min", ANY_INVALID_PASSWORD)
 
-        assertEquals(InvalidUsername.left(), logInResult)
-    }
+            assertEquals(InvalidUsername.left(), logInResult)
+        }
 
     @Test
-    fun `should return an invalid credentials error if the username is not correct`() {
+    fun `should return an invalid username error if the username contains the third invalid char char chars`() =
+        runBlocking {
+            val logInResult = logInLogOutKata.logIn("ad;min", ANY_INVALID_PASSWORD)
+
+            assertEquals(InvalidUsername.left(), logInResult)
+        }
+
+    @Test
+    fun `should return an invalid credentials error if the username is not correct`() = runBlocking {
         val logInResult = logInLogOutKata.logIn(ANY_INVALID_USERNAME, ANY_VALID_PASSWORD)
 
         assertEquals(InvalidCredentials.left(), logInResult)
     }
 
     @Test
-    fun `should return an invalid credentials error if the password is not correct`() {
+    fun `should return an invalid credentials error if the password is not correct`() = runBlocking {
         val logInResult = logInLogOutKata.logIn(ANY_VALID_USERNAME, ANY_INVALID_PASSWORD)
 
         assertEquals(InvalidCredentials.left(), logInResult)
     }
 
     @Test
-    fun `should return the user username and a success result if the user and password are corrects`() {
+    fun `should return the user username and a success result if the user and password are corrects`() = runBlocking {
         val logInResult = logInLogOutKata.logIn(ANY_VALID_USERNAME, ANY_VALID_PASSWORD)
 
         assertEquals(ANY_VALID_USERNAME.right(), logInResult)
     }
 
     @Test
-    fun `should return an error if the second when the log out is performed is odd`() {
+    fun `should return an error if the second when the log out is performed is odd`() = runBlocking {
         givenNowIs(DateTime(3))
 
         val logOutResult = logInLogOutKata.logOut()
@@ -85,7 +89,7 @@ class LogInLogOutKataTest {
     }
 
     @Test
-    fun `should return success if the second when the log out is performed is even`() {
+    fun `should return success if the second when the log out is performed is even`() = runBlocking {
         givenNowIs(DateTime(2))
 
         val logOutResult = logInLogOutKata.logOut()
