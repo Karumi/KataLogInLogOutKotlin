@@ -5,22 +5,23 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.android.UI
 
 class MainActivity : AppCompatActivity(), Presenter.View {
 
     private val presenter = Presenter(
         logInLogOutKata = LogInLogOutKata(Clock()),
-        view = this,
-        asyncContext = DefaultDispatcher,
-        uiContext = UI
+        view = this
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         hookListeners()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 
     private fun hookListeners() {
