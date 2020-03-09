@@ -5,6 +5,7 @@ repositories {
 apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion 28
@@ -41,7 +42,7 @@ dependencies {
   implementation "io.arrow-kt:arrow-instances-core:$arrow_version"
   implementation "io.arrow-kt:arrow-instances-data:$arrow_version"
   kapt "io.arrow-kt:arrow-annotations-processor:$arrow_version"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
   implementation "joda-time:joda-time:2.10"
   testImplementation "junit:junit:4.12"
